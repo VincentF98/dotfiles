@@ -1,0 +1,99 @@
+setopt PROMPT_SUBST
+setopt append_history share_history histignorealldups
+setopt auto_cd
+
+setopt RM_STAR_WAIT
+setopt interactivecomments
+autoload -Uz compinit promptinit
+compinit
+promptinit
+
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+
+export TERM=screen-256color
+export EDITOR='vim'
+export USE_EDITOR=$EDITOR
+export VISUAL=$EDITOR
+
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' menu select
+setopt menu_complete
+setopt correct
+source /etc/zsh/git.zsh
+ZSH_THEME_GIT_PROMPT_PREFIX_CLEAN="%F{green}‹"
+ZSH_THEME_GIT_PROMPT_PREFIX_DIRTY="%F{yellow}‹"
+ZSH_THEME_GIT_PROMPT_SUFFIX_CLEAN="%F{green}›%f"
+ZSH_THEME_GIT_PROMPT_SUFFIX_DIRTY="%F{yellow}›%f"
+ZSH_THEME_GIT_PROMPT_CLEAN=""
+ZSH_THEME_GIT_PROMPT_DIRTY="*"
+
+function pruser() {
+	if [[ $UID -ne 0 ]]; then # normal user
+		echo '%F{green}%n%f'
+	else # root
+		echo '%F{red}%n%f'
+	fi
+}
+
+function prprompt() {
+	if [[ $UID -ne 0 ]]; then # normal user
+		echo '%F{green}%# %f'
+	else # root
+		echo '%F{red}%# %f'
+	fi
+}
+
+function prhost() {
+	if [[ -n "$SSH_CLIENT"  ||  -n "$SSH2_CLIENT" ]]; then
+		echo '%F{red}%M%f' # SSH
+	else
+		echo '%F{green}%M%f' # no SSH
+	fi
+
+}
+
+precmd() {
+	#	PREXIT=""
+	EXITCODE="$?"
+	ECE="${(%):-$EXITCODE}"
+	#	print $EXITCODE
+	#	print $ECE
+	#	print ${#ECE}
+	PREXIT='${(l:COLUMNS-${#ECE}-3:: :)}%F{red}${EXITCODE} ↵ %f'$'\n'
+	local zero='%([BSUbfksu]|([FK]|){*})'
+	LEFT="╭─$(pruser)%F{cyan}@$(prhost) %B%F{blue}%2~%f%b"
+	RIGHT="$(git_prompt_info)"
+	local LS=${(S%%)LEFT//$~zero/}
+	LPROMPTLEN=${#LS}
+	local RS=${(S%%)RIGHT//$~zero/}
+	RPROMPTLEN=${#RS}
+	LINE1='$LEFT${(l:COLUMNS-$LPROMPTLEN-$RPROMPTLEN:: :)}$RIGHT'
+	print -Pn "\e]2;%n@%M | %~\a"  # title bar prompt
+}
+precmd
+setprompts() {
+	RPS1="%D{%m-%f-%y} %D{%L:%M:%S}"
+	PS1="%(?..$PREXIT)$LINE1
+%f╰─$(prprompt)"
+}
+
+setprompts
+
+alias diff='diff --color=auto'
+alias grep='grep --color=auto'
+alias ls='ls --color=auto'
+
+man() {
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    command man "$@"
+}
