@@ -1,7 +1,3 @@
-# This file is adapted from oh-my-zsh
-# https://github.com/robbyrussell/oh-my-zsh
-#
-#
 # Outputs current branch info in prompt format
 function git_prompt_info() {
 	local ref

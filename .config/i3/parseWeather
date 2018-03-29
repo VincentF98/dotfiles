@@ -14,7 +14,7 @@ if (/\<title\>Currently/) {
         binmode(STDOUT, ":utf8");
         print "$cloud";
     }
-    if ($values[0] eq "Showers" || $values[0] eq "Mostly Cloudy w/ Showers" || $values[0] eq "Partly Sunny w/ Showers" || $values[0] eq "T-Storms" || $values[0] eq "Mostly Cloudy w/ T-Storms" || $values[0] eq "Partly Sunny w/ T-Storms" || $values[0] eq "Rain") {
+    if ($values[0] eq "Showers" || $values[0] eq "Mostly Cloudy W/ Showers" || $values[0] eq "Partly Sunny W/ Showers" || $values[0] eq "T-Storms" || $values[0] eq "Mostly Cloudy W/ T-Storms" || $values[0] eq "Partly Sunny W/ T-Storms" || $values[0] eq "Rain") {
         my $rain = "";
         binmode(STDOUT, ":utf8");
         print "$rain";
@@ -24,18 +24,19 @@ if (/\<title\>Currently/) {
         binmode(STDOUT, ":utf8");
         print "$wind";
     }
-    if ($values[0] eq "Flurries" || $values[0] eq "Mostly Cloudy w/ Flurries" || $values[0] eq "Partly Sunny w/ Flurries" || $values[0] eq "Snow" || $values[0] eq "Mostly Cloudy w/ Snow" || $values[0] eq "Ice" || $values[0] eq "Sleet" || $values[0] eq "Freezing Rain" || $values[0] eq "Rain and Snow" || $values[0] eq "Cold") {
+    if ($values[0] eq "Flurries" || $values[0] eq "Mostly Cloudy W/ Flurries" || $values[0] eq "Partly Sunny W/ Flurries" || $values[0] eq "Snow" || $values[0] eq "Mostly Cloudy W/ Snow" || $values[0] eq "Ice" || $values[0] eq "Sleet" || $values[0] eq "Freezing Rain" || $values[0] eq "Rain and Snow" || $values[0] eq "Cold") {
         my $snow = "";
         binmode(STDOUT, ":utf8");
-        print "$rain";
+        print "$snow";
     }
-    if ($values[0] eq "Clear" || $values[0] eq "Mostly Clear" || $values[0] eq "Partly Cloudy" || $values[0] eq "Intermittent Clouds" || $values[0] eq "Hazy Moonlight" || $values[0] eq "Mostly Cloudy" || $values[0] eq "Partly Cloudy w/ Showers" || $values[0] eq "Mostly Cloudy w/ Showers" || $values[0] eq "Partly Cloudy w/ T-Storms" || $values[0] eq "Mostly Cloudy w/ Flurries" || $values[0] eq "Mostly Cloudy w/ Snow") {
+    if ($values[0] eq "Hazy Moonlight") {
         my $night = "";
         binmode(STDOUT, ":utf8");
         print "$night";
     }
 		print "$values[1]";
 		my $degsym = "°C";
+    binmode(STDOUT, ":utf8");
 		print "$degsym";
 }
 
