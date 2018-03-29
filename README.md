@@ -1,5 +1,5 @@
 # dotfiles
-Configuration files for my void linux System
+Configuration files for my Void Linux system.
 Includes configuration for:
   * Vim
   * Zsh
