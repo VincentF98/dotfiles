@@ -1,5 +1,5 @@
 # dotfiles
-Configuration files for my Archlinux System
+Configuration files for my void linux System
 Includes configuration for:
   * Vim
   * Zsh
