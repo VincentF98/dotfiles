@@ -29,7 +29,7 @@ if (/\<title\>Currently/) {
         binmode(STDOUT, ":utf8");
         print "$snow";
     }
-    if ($values[0] eq "Hazy Moonlight") {
+    if ($values[0] eq "Hazy Moonlight" || $values[0] eq "Mostly Clear") {
         my $night = "";
         binmode(STDOUT, ":utf8");
         print "$night";
