@@ -26,6 +26,7 @@ filetype plugin indent on
 " do not load defaults if ~/.vimrc is missing
 "let skip_defaults_vim=1
 "
+set t_Co=16
 set encoding=utf-8
 set fileencoding=utf-8
 set tabstop=2

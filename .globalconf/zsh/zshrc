@@ -121,7 +121,7 @@ precmd() {
 	else
 		SIGNAME=""
 	fi
-	PREXIT='%{$(linecolor)%}┤%K{red}%{$CWHITE%}%B$EXITCODE$SIGNAME%b%k%{$(linecolor)%}├'
+	PREXIT='%{$(linecolor)%}┤%K{1}%{$CWHITE%}%B$EXITCODE$SIGNAME%b%k%{$(linecolor)%}├'
 	local zero="%([BSUbfksu]|([FK]|){*})"
 	LEFT="%{$(linecolor)%}┌┤$(pruser)%{$CCYAN%}@$(prhost) %{$CBLUE%}%2~/%f$(git_prompt_info)%{$(linecolor)%}├"
 	RIGHT="%{$(linecolor)%}┤%{$CLOCKCOLOR%}%D{%m-%f-%y %L:%M:%S}%{$(linecolor)%}├"

@@ -1,37 +1,37 @@
 *.font:		xft:Source Code Pro:size=12, xft:Source\ Code\ Pro\ for\ Powerline:size=12, xft:Font\ Awesome:size=12, xft:symbola:size=12
 
 ! special
-*.foreground:   #8888aa
-*.background:   #00000a
-*.cursorColor:  #8888aa
+*.foreground:   #ccbbff
+*.background:   #150044
+*.cursorColor:  #ccbbff
 
 ! black
-*.color0:       #282828
-*.color8:       #373737
+*.color0:       #000000
+*.color8:       #333333
 
 ! red
-*.color1:       #aa0000
-*.color9:       #cc0022
+*.color1:       #ee0000
+*.color9:       #ff3333
 
 ! green
-*.color2:       #33aa33
-*.color10:      #55cc55
+*.color2:       #00ff77
+*.color10:      #77ff88
 
 ! yellow
-*.color3:       #ccaa00
-*.color11:      #ffcc00
+*.color3:       #ffff00
+*.color11:      #ffff88
 
 ! blue
-*.color4:       #0000d7
-*.color12:      #2222ff
+*.color4:       #3366ff
+*.color12:      #33aaff
 
 ! magenta
-*.color5:       #8700ff
-*.color13:      #ff00aa
+*.color5:       #bf00ff
+*.color13:      #c077ff
 
 ! cyan
-*.color6:       #0099bb
-*.color14:      #00bbdd
+*.color6:       #00f8ff
+*.color14:      #88ffff
 
 ! white
 *.color7:       #eeeeff
@@ -44,8 +44,7 @@ Xft.hinting:							true
 Xft.hintingstyle:					hintfull
 
 URxvt.intensityStyles:		false
-URxvt.background:					[90]#00000A
-URxvt.foreground:					#8888AA
+URxvt.background:					[90]#150044
 URxvt.depth:							32
 URxvt.skipBuiltinGlyphs:	true
 ! URxvt*font:								xft:Source Code Pro:size=12, xft:Source\ Code\ Pro\ for\ Powerline:size=12, xft:symbola:size=12
