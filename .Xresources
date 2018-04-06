@@ -1,4 +1,4 @@
-#include ".Xresources.d/ocean"
+#include ".Xresources.d/dark"
 
 *.font:		xft:Source Code Pro for Powerline:size=13,xft:SauceCodePro Nerd Font Mono:size=13
 *.boldfont: xft:SauceCodePro Nerd Font Mono:bold:size=13

@@ -33,6 +33,8 @@ filetype plugin indent on
 let g:solarized_termtrans = 1
 set background=dark
 colorscheme solarized
+set cursorline
+
 set encoding=utf-8
 set fileencoding=utf-8
 set tabstop=2

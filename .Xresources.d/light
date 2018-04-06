@@ -1,0 +1,42 @@
+#define red									#ed492c
+#define orange							#db4d00
+#define yellow							#a97d00
+#define green								#379700
+#define cyan								#00a1bd
+#define blue								#5e76ff
+#define violet							#a064ef
+#define magenta							#ca4fd4
+
+#define base3								#001f44
+#define base2								#002950
+#define base1								#486e94
+#define base0								#667990
+#define base00							#8b9199
+#define base01							#a29d95
+#define base02							#fbefde
+#define base03							#fffeec
+
+*.foreground:								base0
+*.background:								base03
+*.cursorColor:							base1
+*.pointerColorForeground:		base1
+*.pointerColorBackground:		base01
+
+*.color0:										base02
+*.color1:										red
+*.color2:										green
+*.color3:										yellow
+*.color4:										blue
+*.color5:										magenta
+*.color6:										cyan
+*.color7:										base2
+*.color8:										base03
+*.color9:										orange
+*.color10:									base01
+*.color11:									base00
+*.color12:									base0
+*.color13:									violet
+*.color14:									base1
+*.color15:									base3
+
+! URxvt*background:					[90] base03
