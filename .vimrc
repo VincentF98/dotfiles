@@ -12,7 +12,10 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'xuhdev/vim-latex-live-preview'
-Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'edkolev/tmuxline.vim'
+Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
 filetype plugin indent on
 " This line should not be removed as it ensures that various options are
@@ -26,7 +29,10 @@ filetype plugin indent on
 " do not load defaults if ~/.vimrc is missing
 "let skip_defaults_vim=1
 "
-set t_Co=16
+" set t_Co=16
+let g:solarized_termtrans = 1
+set background=dark
+colorscheme solarized
 set encoding=utf-8
 set fileencoding=utf-8
 set tabstop=2
@@ -59,3 +65,7 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 let g:tex_flavor='latex'
+let g:airline_powerline_fonts = 1
+let g:airline_skip_empty_sections = 1
+let g:airine#extensions#tmuxline#enabled = 1
+let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"

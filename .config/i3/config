@@ -1,5 +1,5 @@
 set $mod Mod4
-set $fontstack = Font Awesome, Source Code Pro 13
+set $fontstack Source Code Pro, Font Awesome 5 Free 13
 font pango:$fontstack
 default_orientation vertical
 for_window [class="^.*"] border pixel 1 split toggle
@@ -142,7 +142,7 @@ client.urgent						$urgent-bg-color 		$urgent-bg-color 		$text-color 					$urgen
 bar {
 				position			top
 				i3bar_command i3bar -t
-					font pango:$fontstack
+				font pango:$fontstack
         status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
 				tray_output	none
 				colors {

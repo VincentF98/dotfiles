@@ -1,41 +1,7 @@
-*.font:		xft:Source Code Pro:size=12, xft:Source\ Code\ Pro\ for\ Powerline:size=12, xft:Font\ Awesome:size=12, xft:symbola:size=12
+#include ".Xresources.d/ocean"
 
-! special
-*.foreground:   #ccbbff
-*.background:   #150044
-*.cursorColor:  #ccbbff
-
-! black
-*.color0:       #000000
-*.color8:       #333333
-
-! red
-*.color1:       #ee0000
-*.color9:       #ff3333
-
-! green
-*.color2:       #00ff77
-*.color10:      #77ff88
-
-! yellow
-*.color3:       #ffff00
-*.color11:      #ffff88
-
-! blue
-*.color4:       #3366ff
-*.color12:      #33aaff
-
-! magenta
-*.color5:       #bf00ff
-*.color13:      #c077ff
-
-! cyan
-*.color6:       #00f8ff
-*.color14:      #88ffff
-
-! white
-*.color7:       #eeeeff
-*.color15:      #ffffff
+*.font:		xft:Source Code Pro for Powerline:size=13,xft:SauceCodePro Nerd Font Mono:size=13
+*.boldfont: xft:SauceCodePro Nerd Font Mono:bold:size=13
 
 Xft.dpi:									96
 Xft.antialias:						true
@@ -44,10 +10,9 @@ Xft.hinting:							true
 Xft.hintingstyle:					hintfull
 
 URxvt.intensityStyles:		false
-URxvt.background:					[90]#150044
 URxvt.depth:							32
 URxvt.skipBuiltinGlyphs:	true
+URxvt.letterSpace:				1.5
 ! URxvt*font:								xft:Source Code Pro:size=12, xft:Source\ Code\ Pro\ for\ Powerline:size=12, xft:symbola:size=12
-URxvt*letterSpace:				1
 URxvt.scrollBar:					false
 URxvt.cursorColor:				#8888AA
