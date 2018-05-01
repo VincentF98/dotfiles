@@ -66,7 +66,7 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-let g:tex_flavor='latex'
+let g:tex_flavor='pdflatex'
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
 let g:airine#extensions#tmuxline#enabled = 1

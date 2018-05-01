@@ -1,0 +1,78 @@
+Config {
+    font = "xft:SauceCodePro Nerd Font:size=12",
+    position = Top,
+    lowerOnStart = True,
+    alpha = 238,
+    commands =
+      [ Run Weather "EDDM"
+          [ "--template", "<tempC>°C <skyCondition>"
+          , "--Low",      "64"
+          , "--High",     "77"
+          , "--high",     "#cb4b16"
+          , "--normal",   "#859900"
+          , "--low",      "#268bd2"
+          ] 36000
+      , Run Memory
+          [ "--template", "Mem: <usedratio>%"
+          , "--High",     "6144"
+          , "--Low",      "2048"
+          , "--high",     "#dc322f"
+          , "--normal",   "#b58900"
+          , "--low",      "#859900"
+          ] 20
+      , Run Swap
+          [ "--template", "Swap: <usedratio>%"
+          , "--High",     "1024"
+          , "--Low",      "0"
+          , "--high",     "#dc322f"
+          , "--normal",   "#b58900"
+          , "--low",      "#859900"
+          ] 20
+      , Run CoreTemp
+          [ "--template", " <core0>°C"
+          , "--High", "60"
+          , "--Low",  "40"
+          , "--high",     "#dc322f"
+          , "--normal",   "#b58900"
+          , "--low",      "#859900"
+          ] 60
+      , Run Wireless "wlan0"
+          [ "--template", " <essid> <quality>%"
+          ] 40
+       , Run BatteryN ["BAT0"]
+          [ "--template" , ("<acstatus>")
+          , "--Low"      , "10"
+          , "--High"     , "60"
+          , "--high"     , "#859900"
+          , "--normal"   , "#b58900"
+          , "--low"      , "#dc322f"
+          , "--" -- battery specific options
+          , "-o"	, " <left>% (<timeleft>)" -- discharging status
+          , "-O"	, " Charging (<left>%)" -- AC "on" status
+          , "-i"	, " <left>%" -- charged status
+          , "-l"      , "#dc322f"
+          , "-m"      , "#b58900"
+          , "-h"      , "#859900"
+          ] 100 "bat0"
+      , Run BatteryN ["BAT1"]
+          [ "--template" , ("<acstatus>")
+          , "--Low"      , "10"
+          , "--High"     , "60"
+          , "--high"     , "#859900"
+          , "--normal"   , "#b58900"
+          , "--low"      , "#dc322f"
+          , "--" -- battery specific options
+          , "-o"	, " <left>% (<timeleft>)" -- discharging status
+          , "-O"	, " Charging (<left>%)" -- AC "on" status
+          , "-i"	, " <left>%" -- charged status
+          , "-l"      , "#dc322f"
+          , "-m"      , "#b58900"
+          , "-h"      , "#859900"
+          ] 100 "bat1"
+     , Run Date "<fc=#268bd2> %F %T</fc>" "date" 1
+      , Run StdinReader
+      ],
+    sepChar = "%",
+    alignSep = "}{",
+    template = "%StdinReader% }{%wlan0wi% | %bat0% | %bat1% | %memory% | %coretemp% | %EDDM% | %date%"
+}

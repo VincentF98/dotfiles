@@ -1,0 +1,18 @@
+Colorname            DarkV2          Solarized
+base03               #151740         #002b36
+base02               #21214b         #073642
+base01               #575d7d         #586e75
+base00               #717788         #657b83
+base0                #9b8f80         #839496
+base1                #c5a68a         #93a1a1
+base2                #ffe4c0         #eee8d5
+base3                #fff0cc         #fdf6e3
+
+red                  #ea4d25         #dc322f
+orange               #d76100         #cb4b16
+yellow               #a37f00         #b58900
+green                #289800         #859900
+cyan                 #00a1c3         #2aa198
+blue                 #6f73ff         #268bd2
+violet               #aa60ea         #6c71c4
+magenta              #d04bce         #d33682

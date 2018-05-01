@@ -1,4 +1,4 @@
-#include ".Xresources.d/dark"
+#include ".Xresources.d/solarized-light"
 
 *.font:		xft:Source Code Pro for Powerline:size=13,xft:SauceCodePro Nerd Font Mono:size=13
 *.boldfont: xft:SauceCodePro Nerd Font Mono:bold:size=13
@@ -9,6 +9,7 @@ Xft.rgba:									rgb
 Xft.hinting:							true
 Xft.hintingstyle:					hintfull
 
+URxvt*dynamicColors:      on
 URxvt.intensityStyles:		false
 URxvt.depth:							32
 URxvt.skipBuiltinGlyphs:	true

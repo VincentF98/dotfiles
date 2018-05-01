@@ -39,4 +39,4 @@
 *.color14:									base1
 *.color15:									base3
 
-! URxvt*background:					[90] base03
+URxvt*background:						[90]#001f44
