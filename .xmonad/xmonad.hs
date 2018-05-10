@@ -93,6 +93,11 @@ myManageHooks = composeAll
     , title =? "sysdiag" --> doCenterFloat
     ]
 
+myStartupHook =
+    spawn "feh ~/Pictures/wallpapers/dt.png"
+    <+> spawn "compton -CG --backend glx --vsync opengl"
+    <+> spawn "xautolock -noclose -time 10 -locker /usr/local/bin/lock.sh &"
+
 main = do
     myBorderColor <- getBorderColor
     myFocusedBorderColor <- getFocusedBorderColor
@@ -104,7 +109,7 @@ main = do
         , layoutHook = (avoidStruts $ tiledLayout) ||| Full
         , handleEventHook = handleEventHook def <+> fullscreenEventHook
         , manageHook = myManageHooks <+> manageDocks <+> manageHook def
-        , startupHook = startupHook def <+> setFullscreenSupported
+        , startupHook = startupHook def <+> setFullscreenSupported <+> myStartupHook
         , modMask = mod4Mask
         , keys = myKeys
         , logHook = dynamicLogWithPP xmobarPP
@@ -135,5 +140,5 @@ setFullscreenSupported = withDisplay $ \dpy -> do
                          ,"_NET_WM_STRUT"
                          ]
     io $changeProperty32 dpy r a c propModeReplace (fmap fromIntegral supp)
-    setWMName "xmonad"
+    setWMName "LG3D"
 

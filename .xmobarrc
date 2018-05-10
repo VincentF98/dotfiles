@@ -70,9 +70,10 @@ Config {
           , "-h"      , "#859900"
           ] 100 "bat1"
      , Run Date "<fc=#268bd2> %F %T</fc>" "date" 1
+     , Run IP "wlan0" 10
       , Run StdinReader
       ],
     sepChar = "%",
     alignSep = "}{",
-    template = "%StdinReader% }{%wlan0wi% | %bat0% | %bat1% | %memory% | %coretemp% | %EDDM% | %date%"
+    template = "%StdinReader% }{%wlan0wi% | %wlan0IP% | %bat0% | %bat1% | %memory% | %coretemp% | %EDDM% | %date%"
 }

@@ -38,6 +38,8 @@ CWHITE="%F{7}"
 
 if [[ 256 -eq "${terminfo[colors]}" ]] then
 	# put overrides for 256color terminals here
+	CMAGENTA="%F{13}"
+	CLOCKCOLOR="%F{13}"
 fi
 
 function cpuname() {
