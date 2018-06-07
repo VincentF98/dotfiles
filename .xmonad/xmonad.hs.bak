@@ -1,0 +1,149 @@
+import XMonad
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.SetWMName
+import XMonad.Util.Run(spawnPipe)
+import XMonad.Layout.Gaps
+import XMonad.Layout.Spacing
+import XMonad.Layout.ResizableTile
+import XMonad.Actions.Navigation2D
+import XMonad.Actions.CycleWS
+import System.IO
+import System.Exit
+import System.Directory
+import System.FilePath
+
+import qualified XMonad.StackSet as W
+import qualified Data.Map        as M
+
+getBGColor :: IO String
+getBGColor = do
+    homedir <- getHomeDirectory
+    res <- doesFileExist $ homedir </> ".config/darkmode"
+    if res
+        then return "\"#00362b\""
+        else return "\"#fde3f6\""
+getFGColor :: IO String
+getFGColor = do
+    homedir <- getHomeDirectory
+    res <- doesFileExist $ homedir </> ".config/darkmode"
+    if res
+        then return "\"#fdf6e3\""
+        else return "\"#002b36\""
+getBorderColor :: IO String
+getBorderColor = do
+    homedir <- getHomeDirectory
+    res <- doesFileExist $ homedir </> ".config/darkmode"
+    if res
+        then return "#93a1a1"
+        else return "#586e75"
+getFocusedBorderColor :: IO String
+getFocusedBorderColor = do
+    homedir <- getHomeDirectory
+    res <- doesFileExist $ homedir </> ".config/darkmode"
+    if res
+        then return "#fdf6e3"
+        else return "#002b36"
+
+tiledLayout = gaps [(U, 20), (L, 20), (D, 20), (R, 20)] $ spacing 10 $ tiled
+               where
+                tiled = ResizableTall nmaster delta ratio []
+                nmaster = 1
+                ratio = 1/2
+                delta = 3/100
+
+myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+    [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
+    , ((modm,               xK_i    ),  spawn "firefox")
+    , ((modm .|. shiftMask, xK_q    ),  kill)
+    , ((modm,               xK_d    ), spawn "exe=`dmenu_path | dmenu`&& eval \"exec $exe\"")
+    , ((modm,               xK_f    ),  sendMessage NextLayout)
+    , ((modm,               xK_Tab	),  moveTo Next NonEmptyWS)
+    , ((modm,               xK_h    ),  windowGo L True)
+    , ((modm,               xK_j    ),  windowGo D True)
+    , ((modm,               xK_k    ),  windowGo U True)
+    , ((modm,               xK_l    ),  windowGo R True)
+    , ((modm .|. shiftMask, xK_h    ),  windowSwap L True)
+    , ((modm .|. shiftMask, xK_j    ),  windowSwap D True)
+    , ((modm .|. shiftMask, xK_k    ),  windowSwap U True)
+    , ((modm .|. shiftMask, xK_l    ),  windowSwap R True)
+    , ((modm,               xK_space),  windows W.focusMaster)
+    , ((modm,               xK_n    ),  sendMessage Shrink)
+    , ((modm,               xK_m    ),  sendMessage MirrorShrink)
+    , ((modm,               xK_comma),  sendMessage MirrorExpand)
+    , ((modm,               xK_period), sendMessage Expand)
+    , ((modm,               xK_t    ),  spawn "~/.xmonad/theme_toggle.sh")
+    , ((0,                  xK_Print),  spawn "scrot -q 1 $HOME/Pictures/screenshots/%Y-%m-%d-%H:%M:%S.png")
+    , ((modm .|. shiftMask, xK_t    ),  withFocused $ windows . W.sink)
+		, ((0,									0x1008ff11), spawn "amixer set -M Master 5-")
+		, ((0,									0x1008ff13), spawn "amixer set -M Master 5+")
+		, ((0,									0x1008ff12), spawn "amixer set Master toggle")
+    , ((modm,               xK_r    ),  spawn "xmonad --restart")
+    , ((modm .|. shiftMask, xK_r    ),  spawn "xmonad --recompile; xmonad --restart")
+    , ((modm .|. shiftMask, xK_s    ),  spawn "sudo shutdown -P now")
+    , ((modm,               xK_Escape), spawn "st -t \"sysdiag\" -g 24x7 -e /usr/local/bin/sysdiag.sh")
+    , ((modm .|. shiftMask, xK_e    ), io (exitWith ExitSuccess))
+    ]
+    ++
+    [((m .|. modm, k), windows $ f i)
+        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+
+myManageHooks = composeAll
+    [ isFullscreen --> doFullFloat
+    , title =? "sysdiag" --> doCenterFloat
+    ]
+
+myStartupHook =
+    spawn "feh ~/Pictures/wallpapers/dt.png"
+    <+> spawn "xinput --disable \"SynPS/2 Synaptics TouchPad\""
+    <+> spawn "compton -CG --backend glx --vsync opengl"
+    <+> spawn "xautolock -noclose -time 10 -locker /usr/local/bin/lock.sh &"
+		<+> spawn "xbacklight -set 100"
+
+main = do
+    myBorderColor <- getBorderColor
+    myFocusedBorderColor <- getFocusedBorderColor
+    myBGColor <- getBGColor
+    myFGColor <- getFGColor
+    xmproc <- spawnPipe $ "~/.cabal/bin/xmobar ~/.xmobarrc -F " ++ myFGColor ++ " -B " ++ myBGColor
+    xmonad $ withNavigation2DConfig def $ docks $ ewmh def
+        { terminal = "st"
+        , layoutHook = (avoidStruts $ tiledLayout) ||| Full
+        , handleEventHook = handleEventHook def <+> fullscreenEventHook
+        , manageHook = myManageHooks <+> manageDocks <+> manageHook def
+        , startupHook = startupHook def <+> setFullscreenSupported <+> myStartupHook
+        , modMask = mod4Mask
+        , keys = myKeys
+        , logHook = dynamicLogWithPP xmobarPP
+                        { ppOutput = hPutStrLn xmproc
+                        , ppTitle = xmobarColor "#268bd2" "" . shorten 50
+												, ppCurrent = \s -> xmobarColor "#b58900" "" $ "[" ++ s ++ "]"
+												, ppUrgent = \s -> xmobarColor "#dc322f" "" s
+												, ppOrder = \(ws:_:t:_) -> [ws,t]
+                        }
+        , focusedBorderColor = myFocusedBorderColor
+        , normalBorderColor = myBorderColor
+        }
+
+setFullscreenSupported :: X ()
+setFullscreenSupported = withDisplay $ \dpy -> do
+    r <- asks theRoot
+    a <- getAtom "_NET_SUPPORTED"
+    c <- getAtom "ATOM"
+    supp <- mapM getAtom ["_NET_WM_STATE_HIDDEN"
+                         ,"_NET_WM_STATE_FULLSCREEN" -- XXX Copy-pasted to add this line
+                         ,"_NET_NUMBER_OF_DESKTOPS"
+                         ,"_NET_CLIENT_LIST"
+                         ,"_NET_CLIENT_LIST_STACKING"
+                         ,"_NET_CURRENT_DESKTOP"
+                         ,"_NET_DESKTOP_NAMES"
+                         ,"_NET_ACTIVE_WINDOW"
+                         ,"_NET_WM_DESKTOP"
+                         ,"_NET_WM_STRUT"
+                         ]
+    io $changeProperty32 dpy r a c propModeReplace (fmap fromIntegral supp)
+    setWMName "LG3D"
+

@@ -1,4 +1,4 @@
-#include ".Xresources.d/solarized-light"
+#include ".Xresources.d/solarized-dark"
 
 *.font:		xft:Source Code Pro for Powerline:size=13,xft:SauceCodePro Nerd Font Mono:size=13
 *.boldfont: xft:SauceCodePro Nerd Font Mono:bold:size=13

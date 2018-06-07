@@ -7,6 +7,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Layout.Gaps
 import XMonad.Layout.Spacing
+import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
 import XMonad.Actions.Navigation2D
 import XMonad.Actions.CycleWS
@@ -77,6 +78,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_t    ),  spawn "~/.xmonad/theme_toggle.sh")
     , ((0,                  xK_Print),  spawn "scrot -q 1 $HOME/Pictures/screenshots/%Y-%m-%d-%H:%M:%S.png")
     , ((modm .|. shiftMask, xK_t    ),  withFocused $ windows . W.sink)
+		, ((0,									0x1008ff11), spawn "amixer set -M Master 5-")
+		, ((0,									0x1008ff13), spawn "amixer set -M Master 5+")
+		, ((0,									0x1008ff12), spawn "amixer set Master toggle")
     , ((modm,               xK_r    ),  spawn "xmonad --restart")
     , ((modm .|. shiftMask, xK_r    ),  spawn "xmonad --recompile; xmonad --restart")
     , ((modm .|. shiftMask, xK_s    ),  spawn "sudo shutdown -P now")
@@ -95,8 +99,10 @@ myManageHooks = composeAll
 
 myStartupHook =
     spawn "feh ~/Pictures/wallpapers/dt.png"
+    <+> spawn "xinput --disable \"SynPS/2 Synaptics TouchPad\""
     <+> spawn "compton -CG --backend glx --vsync opengl"
     <+> spawn "xautolock -noclose -time 10 -locker /usr/local/bin/lock.sh &"
+		<+> spawn "xbacklight -set 100"
 
 main = do
     myBorderColor <- getBorderColor
@@ -106,7 +112,7 @@ main = do
     xmproc <- spawnPipe $ "~/.cabal/bin/xmobar ~/.xmobarrc -F " ++ myFGColor ++ " -B " ++ myBGColor
     xmonad $ withNavigation2DConfig def $ docks $ ewmh def
         { terminal = "st"
-        , layoutHook = (avoidStruts $ tiledLayout) ||| Full
+        , layoutHook = lessBorders OnlyFloat $ (avoidStruts $ tiledLayout) ||| noBorders Full
         , handleEventHook = handleEventHook def <+> fullscreenEventHook
         , manageHook = myManageHooks <+> manageDocks <+> manageHook def
         , startupHook = startupHook def <+> setFullscreenSupported <+> myStartupHook
